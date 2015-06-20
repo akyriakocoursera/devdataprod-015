@@ -3,12 +3,6 @@ library(ellipse)
 
 shinyServer(function(input, output) {
   
-  # a large table, reative to input$show_vars
-#   output$mytable1 <- renderDataTable({
-#     library(ggplot2)
-#     diamonds[, input$show_vars, drop = FALSE]
-#   })
-  
     data <- reactive({
       variable <- switch(input$variable,
                      cyl = cyl,
@@ -27,7 +21,6 @@ shinyServer(function(input, output) {
     plotcorr(cor_mtcars,col=rgb(colorfun((cor_mtcars+1)/2), maxColorValue=255))
   })
   
-  # sorted columns are colored now because CSS are attached to them
   output$mytable2 <- renderDataTable({
     mtcars
   }, options = list(orderClasses = TRUE))
@@ -57,9 +50,5 @@ shinyServer(function(input, output) {
   
   
   
-  # customize the length drop-down menu; display 5 rows per page by default
-#   output$mytable3 <- renderDataTable({
-#     iris
-#   }, options = list(lengthMenu = c(5, 30, 50), pageLength = 5))
   
 })

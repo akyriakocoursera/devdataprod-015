@@ -1,0 +1,52 @@
+Motor Trend Car Road Tests
+========================================================
+author: Akriotis Kyriakos
+date: 20/06/2015
+
+Motor Trend Car Road Tests
+========================================================
+
+The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models).
+
+It is data frame with 32 observations on 11 variables :
+
+[, 1]   mpg	 Miles/(US) gallon
+[, 2]	 cyl	 Number of cylinders
+[, 3]	 disp	 Displacement (cu.in.)
+[, 4]	 hp	 Gross horsepower
+[, 5]	 drat	 Rear axle ratio
+[, 6]	 wt	 Weight (lb/1000)
+[, 7]	 qsec	 1/4 mile time
+[, 8]	 vs	 V/S
+[, 9]	 am	 Transmission (0 = automatic, 1 = manual)
+[,10]	 gear	 Number of forward gears
+[,11]	 carb	 Number of carburetors
+
+Layout
+========================================================
+The application layout has two panes. The left one is a radiobutton list where you can select which predictor to use when conducting a
+linear regression model against mpg. It is reactive so whenever you change your choice the Model and Diagnostic Plots tabs update respectively in
+asynchronous fashion. The right pane consists of 6 tabs : A Description where you get a structural description of the dataset, a Summary where you get a highlevel summary of basic variables, a Correllations which projects a plot of the correllation coefficients of the dataset variables, a Data tab where you can preview the dataset as a datatable and the aformentioned Model that hold the summary for the conducted linear regression model and Diagnostic Plots which has various diagnostic plots like residuals plots, qq plot etc.
+
+Correlations
+========================================================
+Get a visual projection of the correlation coefficients :
+
+```{r, echo=FALSE}
+library(ellipse)
+cor_mtcars <- cor(mtcars[,1:11])
+    colorfun <- colorRamp(c("#CC0000","white","#3366CC"), space="Lab")
+    plotcorr(cor_mtcars,col=rgb(colorfun((cor_mtcars+1)/2), maxColorValue=255))
+```
+
+Model and Diagnostics
+========================================================
+Choose the predictor of your interest from the radio button list in the left pane(e.g cyl) and inspect the outcome :
+
+```{r, echo=FALSE}
+library(datasets)
+lrm <- lm(mpg ~ cyl, data = mtcars)
+    par(mfrow = c(2, 2))
+    plot(lrm)
+```
+
